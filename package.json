@@ -1,0 +1,17 @@
+{
+  "name": "Pi-Calc",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "postcss css/tailwind.css -o public/build/tailwind.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^1.2.0",
+    "autoprefixer": "^9.6.1",
+    "postcss-cli": "^6.1.2",
+    "tailwindcss": "^1.0.4"
+  }
+}

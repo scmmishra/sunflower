@@ -1,0 +1,79 @@
+<!-- https://calculus7.org/2016/01/17/irrational-sunflowers/ -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Visualizing Irrational Numbers</title>
+	<link rel="stylesheet" href="/build/tailwind.css">
+	<script src="https://unpkg.com/snapsvg@0.5.1/dist/snap.svg.js"></script>
+</head>
+<body class="container mt-12 mx-auto bg-gray-200 px-2">
+	<div class="py-5 bg-white rounded">
+		<svg class="mx-auto" height="500" width="500" id="polygon"></svg>
+		<div class="mx-auto flex flex-col" style="max-width: 600px;">
+			<label class="block text-sm text-gray-600 mb-1 md:mb-0 pr-4 mt-2" for="inline-full-name">Irrational Number</label>
+			<input id="alpha" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-100 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-black" id="inline-full-name" type="text">
+			<div class="mt-3 grid grid-cols-4 grid-flow-col gap-4">
+				<div id="pi" class="p-5 border cursor-pointer rounded text-center hover:border-gray-700">π</div>
+				<div id="e" class="p-5 border cursor-pointer rounded text-center hover:border-gray-700">e</div>
+				<div id="sqrttwo" class="p-5 border cursor-pointer rounded text-center hover:border-gray-700">sqrt(2)</div>
+				<div id="random" class="p-5 border cursor-pointer rounded text-center hover:border-gray-700">Random</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+let snap = Snap("#polygon");
+let num = 500;
+let alpha = 5.3
+let svg = document.getElementById('polygon')
+
+const $alpha = document.getElementById("alpha");
+$alpha.onchange = () => {
+	alpha = $alpha.value;
+	make();
+};
+
+const id_val = [
+	['e', Math.E],
+	['pi', Math.PI],
+	['sqrttwo', Math.sqrt(2)]
+]
+
+id_val.forEach(pair => {
+	let $e = document.getElementById(pair[0])
+	$e.onclick = () => {
+		alpha = pair[1];
+		$alpha.value = pair[1];
+		make();
+	};
+})
+
+let $random = document.getElementById('random')
+$random.onclick = () => {
+	alpha = Math.random() * 10;
+	$alpha.value = Math.random() * 10;
+	make();
+};
+
+function make() {
+	svg.innerHTML = ""
+	for (let nn = 1; nn <= num; nn++) {
+		let r = Math.sqrt((nn-1)/2)
+		let theta = 2*Math.PI*alpha*nn
+
+		let circle = snap.circle(
+			10*r*Math.cos(theta) + 250,
+			10*r*Math.sin(theta) + 250,
+			3);
+
+		circle.attr({
+			fill: "#ED64A6",
+		});
+	}
+}
+
+make();
+</script>
+</html>
